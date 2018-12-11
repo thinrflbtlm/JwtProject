@@ -1,0 +1,58 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: test
+    password:
+    url: jdbc:mysql://localhost:3307/test?serverTimezone=Asia/Shanghai&useSSL=true
+  jackson:
+    serialization:
+      indent_output: true
+  ##   Redis \u670D\u52A1\u5668\u914D\u7F6E
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+#    jedis:
+#      pool:
+#        min-idle: 0
+#        max-idle: 8
+#        max-active: 8
+#        max-wait: -1ms
+#  data:
+#    mongodb:
+#      uri: mongodb://127.0.0.1:27017/logs
+##   session\u5B58\u50A8\u65B9\u5F0F\u914D\u7F6E
+#  session:
+#    store-type: redis
+jwt:
+  #  \u8BF7\u6C42\u5934\u90E8\u5C5E\u6027
+  header: Authorization
+  #  \u7528\u6237\u5B9A\u4E49\u53E3\u4EE4
+  secret: mySecret
+  #  \u6709\u6548\u671F
+  expiration: 604800
+  #  \u627F\u8F7D\u5B57\u7B26\u4E32\uFF08\u975E\u52A0\u5BC6\uFF09
+  tokenHead: It300
+  route:
+    authentication:
+      #      \u8DEF\u5F84
+      path: /auth
+      #      \u5237\u65B0
+      refresh: /refresh
+mybatis:
+  type-aliases-package:  cc.test.invt2.domain
+  configuration:
+    #    \u9A7C\u5CF0\u547D\u540D\u6CD5
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+#  \u8BBE\u7F6E\u65E5\u5FD7\u8F93\u51FA\u7EA7\u522B
+logging:
+  level:
+    cc.it300.invt2.mapper: debug
+    cc.it300.invt2.jwtSecurity: debug
+#    cc.it300.invt2.security: info
+server:
+  port: 8182
+  servlet:
+    context-path:

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) 2017-2018. Spring-Boot -Version 2.1.0.RELEASE               ~
+  ~ UserMapper.xml  181209 03:58:27 by @Chenccsy                              ~
+  ~ JavaProject builded by IDE@ ,all rights reserved.                         ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cc.test.invt2.mapper.UserMapper">
+    <!--<cache type="com.newer.hospital.util.RedisCache"/>-->
+
+    <resultMap id="usermapper1" type="cc.test.invt2.domain.User">
+        <id property="userid2" column="userid2"/>
+        <result property="acountid" column="acount"/>
+        <result property="username" column="username"/>
+        <result property="useremail" column="useremail"/>
+        <result property="userpwd" column="userpwd"/>
+        <result property="usersex" column="usersex"/>
+        <result property="userproblem" column="userproblem"/>
+        <result property="useranswer" column="useranswer"/>
+        <result property="invitedcode" column="invitedcode"/>
+        <result property="invitecode" column="invitecode"/>
+        <result property="userstate" column="userstate"/>
+        <result property="lastPasswordResetDate" column="LastPasswordResetDate"/>
+        <result property="loginTime" column="loginTime"/>
+        <association property="acount" javaType="cc.test.invt2.domain.Acount">
+            <result property="acount" column="acount"/>
+            <result property="aphone" column="aphone"/>
+            <result property="afrozen" column="afrozen"/>
+            <result property="apayment" column="apayment"/>
+            <result property="acard" column="acard"/>
+            <result property="aquaity" column="aquaity"/>
+            <result property="realname" column="realname"/>
+            <result property="abalance" column="abalance"/>
+
+        </association>
+        <!--<collection property="authorityList" ofType="Authority">-->
+            <!--<id property="id" column="acountid"/>-->    
+            <!--<result property="name" column="name"/>-->
+        <!--</collection>-->
+    </resultMap>
+
+    <select id="findByName" resultMap="usermapper1">
+         select * from user u
+         left join acount a on u.acount = a.acount
+         where u.username =#{username};
+    </select>
+
+    <select id="findByLogin" resultMap="usermapper1">
+        select * from user u
+        left join acount a on u.acount = a.acount
+        where u.username =#{username} and u.userpwd=#{userpwd};
+    </select>
+
+
+    <!--<update id="updateAdmins">
+        update admins
+        <set>
+            <if test="pwd != null and pwd !='' and pwd !='null'">
+                pwd = #{pwd}, LASTPASSWORDRESETDATE = now(),
+            </if>
+            <if test="aname != null and aname !='' and aname !='null'">
+                aname = #{aname},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="email != null and email !='null' and email != ''">
+                email = #{email},
+            </if>
+            <if test="aexist != null ">
+                aexist = #{aexist},
+            </if>
+            <if test="doid != null">
+                doid = #{doid}
+            </if>
+        </set>
+        <where>
+            <if test="aid!= null">
+                aid = #{aid}
+            </if>
+            <if test="aid == null and aname != null">
+                and aname = #{aname}
+            </if>
+        </where>
+    </update>-->
+
+</mapper>  
